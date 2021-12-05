@@ -10,8 +10,23 @@ import { setupCourses } from "../common/setup-test-data";
 import { Test } from "tslint";
 
 describe("CoursesCardListComponent", () => {
+  let component: CoursesCardListComponent;
+
+  let fixture: ComponentFixture<CoursesCardListComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [CoursesModule],
+    })
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(CoursesCardListComponent);
+        component = fixture.componentInstance;
+      });
+  });
   it("should create the component", () => {
-    pending();
+    expect(component).toBeTruthy();
+    console.log(component);
   });
 
   it("should display the course list", () => {
