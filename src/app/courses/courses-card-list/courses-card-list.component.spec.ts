@@ -1,4 +1,9 @@
-import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from "@angular/core/testing";
 import { CoursesCardListComponent } from "./courses-card-list.component";
 import { CoursesModule } from "../courses.module";
 import { COURSES } from "../../../../server/db-data";
@@ -11,10 +16,10 @@ import { Test } from "tslint";
 
 describe("CoursesCardListComponent", () => {
   let component: CoursesCardListComponent;
-
   let fixture: ComponentFixture<CoursesCardListComponent>;
+  let el: DebugElement;
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [CoursesModule],
     })
@@ -22,15 +27,19 @@ describe("CoursesCardListComponent", () => {
       .then(() => {
         fixture = TestBed.createComponent(CoursesCardListComponent);
         component = fixture.componentInstance;
+        el = fixture.debugElement;
       });
-  });
+  }));
   it("should create the component", () => {
     expect(component).toBeTruthy();
-    console.log(component);
   });
 
   it("should display the course list", () => {
-    pending();
+    component.courses = setupCourses();
+
+    const cards = el.queryAll(By.css(".course-card"));
+    expect(cards).toBeTruthy("Could not find cards");
+    expect(cards.length).toBe(12, "Unexpected number of courses");
   });
 
   it("should display the first course", () => {
