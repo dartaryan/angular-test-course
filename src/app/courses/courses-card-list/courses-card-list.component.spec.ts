@@ -19,17 +19,19 @@ describe("CoursesCardListComponent", () => {
   let fixture: ComponentFixture<CoursesCardListComponent>;
   let el: DebugElement;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [CoursesModule],
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [CoursesModule],
+      })
+        .compileComponents()
+        .then(() => {
+          fixture = TestBed.createComponent(CoursesCardListComponent);
+          component = fixture.componentInstance;
+          el = fixture.debugElement;
+        });
     })
-      .compileComponents()
-      .then(() => {
-        fixture = TestBed.createComponent(CoursesCardListComponent);
-        component = fixture.componentInstance;
-        el = fixture.debugElement;
-      });
-  }));
+  );
   it("should create the component", () => {
     expect(component).toBeTruthy();
   });
