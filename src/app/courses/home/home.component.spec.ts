@@ -7,6 +7,8 @@ import { CoursesService } from "../services/courses.service";
 import { HomeComponent } from "./home.component";
 import { By } from "@angular/platform-browser";
 import { of } from "rxjs";
+import { by } from "protractor";
+import { click } from "../common/test-utils";
 
 describe("HomeComponent", () => {
   let fixture: ComponentFixture<HomeComponent>;
@@ -66,6 +68,14 @@ describe("HomeComponent", () => {
   });
 
   it("should display advanced courses when tab clicked", () => {
-    pending();
+    coursesService.findAllCourses.and.returnValue(of(setupCourses()));
+    fixture.detectChanges();
+    const tabs = el.queryAll(By.css(".mat-tab-label"));
+    click(tabs[1]);
+    const cardTitles = el.queryAll(By.css(".mat-card-title"));
+    expect(cardTitles.length).toBeGreaterThan(0, "Could not find card titles");
+    expect(cardTitles[0].nativeElement.textContent).toContain(
+      "Angular Security Course"
+    );
   });
 });
